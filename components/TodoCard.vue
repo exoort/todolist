@@ -1,9 +1,27 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title
+      :class="titleClass"
+    >
+      <v-chip
+        v-if="todo.done"
+        class="mr-2"
+        color="success"
+        small
+      >
+        Done
+      </v-chip>
+      <v-chip
+        v-else
+        class="mr-2"
+        color="error"
+        small
+      >
+        Not done
+      </v-chip>
       {{ todo.title }}
     </v-card-title>
-    <v-card-text>
+    <v-card-text v-if="fullVisibility && todoContent.length">
       <template v-for="contentItem in todoContent">
         <component
           :is="contentItem.component"
@@ -14,18 +32,39 @@
     </v-card-text>
     <v-card-actions>
       <v-btn
+        v-if="todoContent.length"
         color="primary"
+        outlined
+        @click="toggleFullVisibility"
+      >
+        <template v-if="!fullVisibility">
+          More
+        </template>
+        <template v-else>
+          Hide
+        </template>
+      </v-btn>
+      <v-spacer />
+      <v-btn
+        v-if="!todo.done"
+        color="success"
+        @click="done"
+      >
+        Make done
+      </v-btn>
+      <v-btn
         :to="{
-          name: 'edit-id',
+          ...$routes.EDIT,
           params: {
             id: todo.id
           }
         }"
+        color="primary"
       >
         Edit
       </v-btn>
       <v-btn
-        color="red"
+        color="error"
         @click="remove"
       >
         Delete
@@ -46,17 +85,29 @@ import DrawTodoCardContent from '~/components/DrawTodoCardContent.vue';
   components: { TextTodoCardContent }
 })
 export default class TodoCard extends Vue {
-  @Prop({ required: true, type: Object })
-  readonly todo!: IToDo;
+  @Prop({
+    required: true,
+    type: Object
+  })
+  readonly todo!: IToDo
 
-  get todoContent(): any[] {
+  fullVisibility = false
+
+  get titleClass (): any {
+    return {
+      'text-body-1': true,
+      truncate: !this.fullVisibility
+    };
+  }
+
+  get todoContent (): any[] {
     if (!this.todo.content.length) {
       return [];
     }
     return this.todo.content.map(c => this.getContentComponent(c));
   }
 
-  getContentComponent(content: IToDoContent): any {
+  getContentComponent (content: IToDoContent): any {
     if (content.type === TodoType.TextTodoType) {
       return {
         component: TextTodoCardContent,
@@ -70,13 +121,26 @@ export default class TodoCard extends Vue {
     }
   }
 
+  toggleFullVisibility (): void {
+    this.fullVisibility = !this.fullVisibility;
+  }
+
   @Emit()
-  remove(todo: IToDo): IToDo {
+  remove (todo: IToDo): IToDo {
+    return todo;
+  }
+
+  @Emit()
+  done (todo: IToDo): IToDo {
     return todo;
   }
 }
 </script>
 
 <style scoped>
-
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>

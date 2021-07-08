@@ -11,7 +11,11 @@ config.rawError = true;
   namespaced: true
 })
 export default class ToDosModule extends VuexModule {
-  todos: IToDo[] = []
+  todos: IToDo[] = [];
+
+  get notDoneTodos(): IToDo[] {
+    return this.todos.filter(todo => !todo.done);
+  }
 
   @Mutation
   setTodos (todos: IToDo[]): void {
@@ -36,14 +40,23 @@ export default class ToDosModule extends VuexModule {
 
   @Mutation
   updateTodo (newTodo: IToDo, updateCache = true): void {
-    const index = this.todos.findIndex(todo => todo.id === newTodo.id);
-    if (!index) {
+    const oldTodos = [...this.todos];
+    const index = oldTodos.findIndex(todo => todo.id === newTodo.id);
+    if (index < 0) {
       return;
     }
-    this.todos[index] = newTodo;
+    oldTodos[index] = newTodo;
+    this.todos = oldTodos;
     if (updateCache) {
       $services[ServiceTokens.CacheService].saveTodos(this.todos);
     }
+  }
+
+  @Action
+  makeTodoDone (todo: IToDo): void {
+    const updatedTodo = JSON.parse(JSON.stringify(todo));
+    updatedTodo.done = true;
+    this.updateTodo(updatedTodo);
   }
 
   @Action

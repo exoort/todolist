@@ -4,4 +4,7 @@
   .v-card {
     background-color: map-get($material-light, 'card-background') !important;
   }
+  .v-btn--is-elevated {
+    box-shadow: unset;
+  }
 }

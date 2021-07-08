@@ -1,20 +1,9 @@
 <template>
-  <v-layout
-    align-center
-    justify-center
-  >
-    <v-flex
-      md4
-      sm8
-      xs12
-    >
-      <todo-edit-form
-        :value="todo"
-        @save="onSave"
-        @remove="onRemove"
-      />
-    </v-flex>
-  </v-layout>
+  <todo-edit-form
+    :loaded="todo"
+    @save="onSave"
+    @remove="onRemove"
+  />
 </template>
 
 <script lang="ts">
@@ -34,16 +23,20 @@ export default class NewTodoPage extends Vue {
   todo: IToDo = {
     id: new Date().getTime(),
     title: '',
+    done: false,
     content: []
   }
 
-  onSave(todo: IToDo): void {
+  onSave(todo: IToDo | false): void {
+    if (!todo) {
+      return;
+    }
     todosStore.addTodo(todo);
-    this.$router.push({ name: 'index' });
+    this.$router.push(this.$routes.INDEX);
   }
 
   onRemove(): void {
-    this.$router.push({ name: 'index' });
+    this.$router.push(this.$routes.INDEX);
   }
 }
 </script>

@@ -2,7 +2,19 @@
   <v-app>
     <v-main>
       <v-container fluid>
-        <nuxt />
+        <v-layout
+          align-center
+          justify-center
+        >
+          <v-flex
+            lg5
+            md8
+            sm12
+            xs12
+          >
+            <nuxt />
+          </v-flex>
+        </v-layout>
       </v-container>
     </v-main>
   </v-app>

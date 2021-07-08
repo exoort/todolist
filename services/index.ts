@@ -1,4 +1,4 @@
-import { CacheService, ICacheService } from '~/store/CacheService';
+import { CacheService, ICacheService } from '~/services/CacheService';
 
 export enum ServiceTokens {
   CacheService= 'CacheService'

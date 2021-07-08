@@ -1,7 +1,6 @@
 <template>
-  <v-text-field
+  <v-textarea
     v-bind="$attrs"
-    clearable
     v-on="$listeners"
   />
 </template>
@@ -10,10 +9,10 @@
 import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component({
-  name: 'TextInput',
+  name: 'TextArea',
   inheritAttrs: false
 })
-export default class TextInput extends Vue {
+export default class TextArea extends Vue {
 }
 </script>
 

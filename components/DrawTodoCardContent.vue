@@ -1,8 +1,9 @@
 <template>
   <div>
     <img
-      :src="content "
+      :src="content"
       alt=""
+      class="draw-image"
     >
   </div>
 </template>
@@ -23,5 +24,8 @@ export default class DrawTodoCardContent extends Vue {
 </script>
 
 <style scoped>
-
+.draw-image {
+  width:100%;
+  max-width: 500px;
+}
 </style>

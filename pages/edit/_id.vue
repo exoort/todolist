@@ -1,25 +1,14 @@
 <template>
-  <v-layout
-    align-center
-    justify-center
+  <todo-edit-form
+    v-if="todo"
+    :loaded="todo"
+    @save="onSave"
+    @remove="onRemove"
   >
-    <v-flex
-      md4
-      sm8
-      xs12
-    >
-      <todo-edit-form
-        v-if="todo"
-        :value="todo"
-        @save="onSave"
-        @remove="onRemove"
-      >
-        <template #title>
-          Edit TODO #{{ todoId }}
-        </template>
-      </todo-edit-form>
-    </v-flex>
-  </v-layout>
+    <template #title>
+      Edit TODO #{{ todoId }}
+    </template>
+  </todo-edit-form>
 </template>
 
 <script lang="ts">
@@ -41,14 +30,20 @@ export default class EditTodoPage extends Vue {
     return todosStore.todos.find(todo => todo.id === this.todoId) ?? null;
   }
 
-  onSave(todo: IToDo): void {
+  onSave(todo: IToDo | false): void {
+    if (!todo) {
+      return;
+    }
     todosStore.updateTodo(todo);
-    this.$router.push({ name: 'index' });
+    this.$router.push(this.$routes.INDEX);
   }
 
-  onRemove(todo: IToDo): void {
+  onRemove(todo: IToDo | false): void {
+    if (!todo) {
+      return;
+    }
     todosStore.removeTodo(todo.id);
-    this.$router.push({ name: 'index' });
+    this.$router.push(this.$routes.INDEX);
   }
 }
 </script>

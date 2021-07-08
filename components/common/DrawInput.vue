@@ -4,7 +4,7 @@
     <div v-if="cfd">
       <v-btn
         color="primary"
-        outlined
+        small
         @click="save"
       >
         Save
@@ -14,7 +14,7 @@
       </v-btn>
       <v-btn
         color="red"
-        outlined
+        small
         @click="remove"
       >
         remove
@@ -23,8 +23,9 @@
         </v-icon>
       </v-btn>
       <v-btn
-        color="primary"
+        color="red"
         outlined
+        small
         @click="cfd.clear()"
       >
         Clear
@@ -35,6 +36,7 @@
       <v-btn
         color="primary"
         outlined
+        small
         @click="cfd.undo()"
       >
         <v-icon left>
@@ -45,6 +47,7 @@
       <v-btn
         color="primary"
         outlined
+        small
         @click="cfd.redo()"
       >
         Redo
@@ -81,11 +84,23 @@ export default class DrawInput extends Vue {
     return `draw_${this.inputId}`;
   }
 
+  get dimensions(): any {
+    if (this.$vuetify.breakpoint.mdAndDown) {
+      return {
+        width: 250,
+        height: 250,
+      };
+    }
+    return {
+      width: 500,
+      height: 500,
+    };
+  }
+
   mounted (): void {
     this.cfd = new CanvasFreeDrawing({
       elementId: this.elementId,
-      width: 500,
-      height: 500,
+      ...this.dimensions
     });
 
     if (this.image) {

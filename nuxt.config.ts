@@ -23,6 +23,7 @@ const config: NuxtConfig = {
   loading: { color: '#0c64c1' },
   modules: [],
   plugins: [
+    '~/plugins/routes',
     '~/plugins/service-provider',
   ],
   vuetify: {
