@@ -60,8 +60,8 @@ export default class ToDosModule extends VuexModule {
   }
 
   @Action
-  loadTodos (): void {
-    const todos = $services[ServiceTokens.CacheService].getTodos();
+  async loadTodos (): Promise<void> {
+    const todos = await $services[ServiceTokens.CacheService].getTodos();
     this.setTodos(todos);
   }
 }

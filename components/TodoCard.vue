@@ -80,6 +80,11 @@ import TextTodoCardContent from '~/components/TextTodoCardContent.vue';
 import { IToDoContent, TodoType } from '~/types/IToDoContent';
 import DrawTodoCardContent from '~/components/DrawTodoCardContent.vue';
 
+interface IContentComponent {
+  component: unknown;
+  content: IToDoContent;
+}
+
 @Component({
   name: 'TodoCard',
   components: { TextTodoCardContent }
@@ -100,14 +105,14 @@ export default class TodoCard extends Vue {
     };
   }
 
-  get todoContent (): any[] {
+  get todoContent (): IContentComponent[] {
     if (!this.todo.content.length) {
       return [];
     }
     return this.todo.content.map(c => this.getContentComponent(c));
   }
 
-  getContentComponent (content: IToDoContent): any {
+  getContentComponent (content: IToDoContent): IContentComponent {
     if (content.type === TodoType.TextTodoType) {
       return {
         component: TextTodoCardContent,
@@ -119,6 +124,7 @@ export default class TodoCard extends Vue {
         content
       };
     }
+    throw new Error('Undefined content type');
   }
 
   toggleFullVisibility (): void {
@@ -136,11 +142,3 @@ export default class TodoCard extends Vue {
   }
 }
 </script>
-
-<style scoped>
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>

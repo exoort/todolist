@@ -110,7 +110,7 @@ export default class DrawInput extends Vue {
       });
     }
     this.cfd.setLineWidth(2);
-    this.cfd.setStrokeColor([0, 0, 255]);
+    this.cfd.setStrokeColor([12, 100, 193]);
     this.listenDraw();
   }
 

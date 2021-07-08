@@ -2,17 +2,19 @@ import { IToDo } from '~/types/IToDo';
 import { TODO_CACHE_KEY } from '~/constants/config';
 
 export interface ICacheService {
-  getTodos(): IToDo[];
+  getTodos(): Promise<IToDo[]>;
   saveTodos(todos: IToDo[]): void;
 }
 
 export class CacheService implements ICacheService {
-  public getTodos(): IToDo[] {
-    const todos = localStorage.getItem(TODO_CACHE_KEY);
+  public async getTodos(): Promise<IToDo[]> {
+    const todos = await new Promise((resolve) => {
+      resolve(localStorage.getItem(TODO_CACHE_KEY));
+    });
     if (!todos) {
       return [];
     }
-    return JSON.parse(todos);
+    return JSON.parse(<string>todos);
   }
 
   public saveTodos(todos: IToDo[]): void {

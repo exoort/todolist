@@ -28,8 +28,8 @@ import { todosStore } from '~/utils/store-accessor';
   name: 'DefaultLayout'
 })
 export default class DefaultLayout extends Vue {
-  created(): void {
-    todosStore.loadTodos();
+  async created(): Promise<void> {
+    await todosStore.loadTodos();
   }
 }
 </script>

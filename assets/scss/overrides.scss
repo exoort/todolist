@@ -8,3 +8,9 @@
     box-shadow: unset;
   }
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
