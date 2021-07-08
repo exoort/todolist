@@ -16,7 +16,7 @@
           <v-spacer />
           <v-btn
             class="mx-2"
-            color="red"
+            color="error"
             small
             @click="remove"
           >
@@ -27,7 +27,7 @@
           </v-btn>
           <v-btn
             class="mx-2"
-            color="green"
+            color="success"
             small
             @click="save"
           >
