@@ -2,7 +2,6 @@ import { Action, config, Module, Mutation, VuexModule } from 'vuex-module-decora
 import { IToDo } from '~/types/IToDo';
 import { ServiceTokens } from '~/services';
 import { $services } from '~/utils/initServices';
-import { todosStore } from '~/utils/store-accessor';
 
 config.rawError = true;
 
@@ -15,7 +14,7 @@ export default class ToDosModule extends VuexModule {
   todos: IToDo[] = []
 
   @Mutation
-  setTodos(todos: IToDo[]): void {
+  setTodos (todos: IToDo[]): void {
     this.todos = todos;
   }
 
