@@ -12,13 +12,10 @@ jobs:
 
     strategy:
       matrix:
-        api: [options, class, composition]
+        api: [class]
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Run initializing script
-        run: COMPONENT_API=${{ matrix.api }} ./init.sh
 
       - run: npm install
 
@@ -26,4 +23,4 @@ jobs:
         run: npm run lint
 
       - name: Run static site generation
-        run: npm run generate
+        run: npm run build

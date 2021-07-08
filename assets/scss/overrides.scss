@@ -1,0 +1,7 @@
+@import './variables.scss';
+
+.theme--light {
+  .v-card {
+    background-color: map-get($material-light, 'card-background') !important;
+  }
+}

@@ -1,0 +1,27 @@
+@import '~vuetify/src/styles/settings/_variables.scss';
+
+$material-light: (
+  'card-background': #f3f3f3,
+);
+
+$btn-rounded-border-radius: 3px !default;
+$card-shaped-border-radius: 3px !default;
+$card-border-radius: 3px !default;
+$btn-border-radius: 3px !default;
+$card-border-radius: 3px !default;
+$alert-border-radius: 3px !default;
+$text-field-border-radius: 3px !default;
+$toolbar-border-radius: 3px !default;
+
+$btn-font-size: .75rem !default;
+$card-elevation: unset;
+$alert-elevation: unset;
+$list-elevation: unset;
+$app-bar-elevation: unset;
+$footer-elevation: unset;
+$dialog-elevation: unset;
+$stepper-elevation: unset;
+$menu-content-elevation: unset;
+$toolbar-elevation: unset;
+
+
